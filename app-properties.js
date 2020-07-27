@@ -1,3 +1,4 @@
-SERVER_PORT = 3000;
+ServerPort = 3000;
+jwtSecret = "Secretkey";
 
-module.exports = { ServerPort : SERVER_PORT };
+module.exports = { ServerPort, jwtSecret };

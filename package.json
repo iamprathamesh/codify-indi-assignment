@@ -20,6 +20,7 @@
   "homepage": "https://github.com/iamprathamesh/codify-indi-assignment#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.25",
     "morgan": "^1.10.0"
   },
