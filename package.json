@@ -1,0 +1,29 @@
+{
+  "name": "codify-indi-assignment",
+  "version": "1.0.0",
+  "description": "The assignment given to me while appearing for interview at Codify Indi",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iamprathamesh/codify-indi-assignment.git"
+  },
+  "author": "Prathamesh Madur",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/iamprathamesh/codify-indi-assignment/issues"
+  },
+  "homepage": "https://github.com/iamprathamesh/codify-indi-assignment#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.9.25",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
