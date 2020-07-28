@@ -1,11 +1,13 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const appProp = require('./app-properties');
 const morgan = require('morgan');
 const jwt = require('jsonwebtoken');
-const testRouter = require('./api/routes/test')
+const agencyRouter = require('./api/routes/agency')
 const app = express();
 
 app.use(morgan('dev'));
+mongoose.connect(appProp.mongoDBUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.get('/login', (req, res, next) => {
     //demo user
@@ -23,7 +25,7 @@ app.get('/login', (req, res, next) => {
     });
 });
 
-app.use('/test', verifyToken, testRouter);
+app.use('/agency', verifyToken, agencyRouter);
 
 function verifyToken(req, res, next) {
     const authHeader = req.headers['authorization'];
