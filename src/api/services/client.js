@@ -6,38 +6,54 @@ class ClientService {
 
     constructor() { }
 
-    static saveClientWithAgency(agency, agencyCounterId, client, clientCounterId) {
+    static saveClient(client) {
+        return new Promise((resolve, reject) => {
+            resolve(client.save(client));
+        })
+    }
+
+    static findOneClient(condition) {
+        return new Promise((resolve, reject) => {
+            Client.findOne(condition, (err, data) => {
+                if (!err) {
+                    resolve(data);
+                } else {
+                    reject(err);
+                }
+            });
+        })
+    }
+
+    static saveOrUpdateClient(agency, client) {
 
         return new Promise((resolve, reject) => {
-            AgencyService.saveAgency(agency, agencyCounterId).then((agency) => {
-                CounterService.findByIdAndUpdate(clientCounterId).then((counter) => {
-                    Client.findOneAndUpdate({
-                        name: client.name
-                    }, {
-                        email: client.email,
-                        phoneNumber: client.phoneNumber,
-                        totalBill: client.totalBill
-                    }, {
-                        new: true,
-                        useFindAndModify: false
-                    }, (error, result) => {
-                        if (result == null) {
-                            client.clientId = counter.sequence_value;
-                            client.agencyId = agency.agencyId;
-                            client.save(client);
-                            Client.findOne({name: client.name}, (err, data) => {
-                                if(!err) {
-                                    client = data;
-                                }
-                            });
-                        } else {
-                            client = result;
-                        }
+            AgencyService.saveOrUpdateAgency(agency).then((agency) => {
+                Client.findOneAndUpdate({
+                    name: client.name,
+                    agencyId: agency._id
+                }, {
+                    email: client.email,
+                    phoneNumber: client.phoneNumber,
+                    totalBill: client.totalBill
+                }, {
+                    new: true,
+                    useFindAndModify: false
+                }, (error, result) => {
+                    if (result === null) {
+                        client.agencyId = agency._id;
+                        ClientService.saveClient(client).then(() => {
+                            ClientService.findOneClient({ name: client.name }).then((data) => {
+                                client = data;
+                                resolve(client);
+                            }).catch((err) => {
+                                reject(err);
+                            })
+                        });
+                    } else {
+                        client = result;
+                    }
 
-                        resolve({agency, client});
-                    });
-                }).catch((error) => {
-                    reject(error);
+                    resolve({ agency, client });
                 });
             }).catch((error) => {
                 reject(error);

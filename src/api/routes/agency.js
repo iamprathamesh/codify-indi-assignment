@@ -10,7 +10,6 @@ router.post('/addAgencyAndClient', (req, res, next) => {
 
     const agency = new Agency({
         _id: new mongoose.Types.ObjectId(),
-        agencyId: null,
         name: req.body.agencyDetails.name,
         address1: req.body.agencyDetails.address1,
         address2: req.body.agencyDetails.address2,
@@ -21,7 +20,6 @@ router.post('/addAgencyAndClient', (req, res, next) => {
 
     const client = new Client({
         _id: new mongoose.Types.ObjectId(),
-        clientId: null,
         agencyId: null,
         name: req.body.clientDetails.name,
         email: req.body.clientDetails.email,
@@ -29,7 +27,7 @@ router.post('/addAgencyAndClient', (req, res, next) => {
         totalBill: req.body.clientDetails.totalBill
     });
 
-    ClientService.saveClientWithAgency(agency, "agencyId", client, "clientId").then((result) => {
+    ClientService.saveOrUpdateClient(agency, client).then((result) => {
         res.status(200).json(result);
     }).catch((error) => {
         throw error;
