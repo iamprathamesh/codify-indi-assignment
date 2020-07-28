@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const Agency = require('../models/agency');
 const Client = require('../models/client');
 const AgencyService = require('../services/agency');
+const ClientService = require('../services/client');
 const router = express.Router();
 
 router.post('/addAgencyAndClient', (req, res, next) => {
@@ -28,7 +29,7 @@ router.post('/addAgencyAndClient', (req, res, next) => {
         totalBill: req.body.clientDetails.totalBill
     });
 
-    AgencyService.saveAgencyAndClient(agency, "agencyId", client, "clientId").then((result) => {
+    ClientService.saveClientWithAgency(agency, "agencyId", client, "clientId").then((result) => {
         res.status(200).json(result);
     }).catch((error) => {
         throw error;
