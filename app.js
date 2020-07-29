@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const appProp = require('./app-properties');
 const morgan = require('morgan');
 const agencyRouter = require('./src/api/routes/agency');
+const clientRouter = require('./src/api/routes/client');
 const AuthService = require('./src/api/services/authentication');
 
 const app = express();
@@ -23,6 +24,7 @@ app.get('/login', (req, res, next) => {
 });
 
 app.use('/agency', AuthService.verifyToken, agencyRouter);
+app.use('/client', AuthService.verifyToken, clientRouter);
 
 app.use((error, req, res, next) => {
     res.status(error.status || 500).json({

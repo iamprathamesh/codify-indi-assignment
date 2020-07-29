@@ -1,10 +1,22 @@
-const CounterService = require('./counter');
 const Agency = require("../models/agency");
-const Client = require('../models/client');
 
 class AgencyService {
 
     constructor() { }
+
+    //db.agencies.aggregate([{$lookup: {from: "clients", localField: "_id", foreignField: "agencyId", as: "clients"}}, {$unwind: "$clients"}, {$group: {_id: "$name", clientName: {$first: "$clients.name"}, max: {$max: "$clients.totalBill"}}}])
+    static getTopClients() {
+        return new Promise((resolve, reject) => {
+            Agency.aggregate([{$lookup: {from: "clients", localField: "_id", foreignField: "agencyId", as: "clients"}}, {$unwind: "$clients"}, {$group: {_id: "$name", clientName: {$first: "$clients.name"}, max: {$max: "$clients.totalBill"}}}])
+            .exec((error, result) => {
+                if(error) {
+                    reject(error);
+                } else {
+                    resolve(result);
+                }
+            });
+        });
+    }
 
     static saveAgency(agency) {
         return new Promise((resolve, reject) => {

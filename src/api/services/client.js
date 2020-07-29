@@ -9,7 +9,27 @@ class ClientService {
     static saveClient(client) {
         return new Promise((resolve, reject) => {
             resolve(client.save(client));
-        })
+        });
+    }
+
+    static updateClient(client) {
+        return new Promise((resolve, reject) => {
+            Client.findByIdAndUpdate(client._id, {
+                name: client.name,
+                email: client.email,
+                phoneNumber: client.phoneNumber,
+                totalBill: client.totalBill
+            }, {
+                new: true,
+                useFindAndModify: false
+            }, (error, result) => {
+                if(error) {
+                    reject(error);
+                } else {
+                    resolve(result);
+                }
+            })
+        });
     }
 
     static findOneClient(condition) {

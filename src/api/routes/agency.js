@@ -34,4 +34,12 @@ router.post('/addAgencyAndClient', (req, res, next) => {
     });
 });
 
+router.get('/getTopClients', (req, res) => {
+    AgencyService.getTopClients().then((result) => {
+        res.status(200).json(result);
+    }).catch((error) => {
+        throw error;
+    });
+});
+
 module.exports = router;
