@@ -28,7 +28,7 @@ router.post('/addAgencyAndClient', (req, res, next) => {
     });
 
     ClientService.saveOrUpdateClient(agency, client).then((result) => {
-        res.status(200).json(result);
+        res.status(201).json(result);
     }).catch((error) => {
         throw error;
     });

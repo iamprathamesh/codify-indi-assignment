@@ -16,7 +16,7 @@ class AuthService {
 
             jwt.sign(user, appProp.jwtSecret, (err, token) => {
                 if (!err) {
-                    resolve(token);
+                    resolve("Bearer " + token);
                 } else {
                     reject(err);
                 }
