@@ -57,5 +57,5 @@ docker run -it -p <your_system_port>:<port_you_specified or default_3000> <Id_of
 Alternatively, you can directly use the development server on:
 
 ```
-http://http://13.235.133.138:3000/api-docs
+http://13.235.133.138:3000/api-docs
 ```
