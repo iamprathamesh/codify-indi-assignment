@@ -12,7 +12,7 @@ class AgencyService {
                 if(error) {
                     reject(error);
                 } else {
-                    resolve(result);
+                    resolve(result[0]);
                 }
             });
         });
