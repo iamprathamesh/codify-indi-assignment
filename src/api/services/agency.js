@@ -4,10 +4,10 @@ class AgencyService {
 
     constructor() { }
 
-    //db.agencies.aggregate([{$lookup: {from: "clients", localField: "_id", foreignField: "agencyId", as: "clients"}}, {$unwind: "$clients"}, {$group: {_id: "$name", clients: {$mergeObjects: "$clients"},  totalBill: {$max: "$clients.totalBill"}}}, {$project: {_id: 0, agencyName: "$_id", clientName: "$clients.name", totalBill: 1}}])
-    static getTopClients() {
+    //db.agencies.aggregate([{$lookup: {from: "clients", localField: "_id", foreignField: "agencyId", as: "clients"}}, {$unwind: "$clients"}, {$group: {_id: "$name", clients: {$mergeObjects: "$clients"},  totalBill: {$max: "$clients.totalBill"}}}, {$project: {_id: 0, agencyName: "$_id", clientName: "$clients.name", totalBill: 1}}, {$sort: {totalBill: -1}}, {$limit: 1}])
+    static getTopClient() {
         return new Promise((resolve, reject) => {
-            Agency.aggregate([{$lookup: {from: "clients", localField: "_id", foreignField: "agencyId", as: "clients"}}, {$unwind: "$clients"}, {$group: {_id: "$name", clients: {$mergeObjects: "$clients"},  totalBill: {$max: "$clients.totalBill"}}}, {$project: {_id: 0, agencyName: "$_id", clientName: "$clients.name", totalBill: 1}}])
+            Agency.aggregate([{$lookup: {from: "clients", localField: "_id", foreignField: "agencyId", as: "clients"}}, {$unwind: "$clients"}, {$group: {_id: "$name", clients: {$mergeObjects: "$clients"},  totalBill: {$max: "$clients.totalBill"}}}, {$project: {_id: 0, agencyName: "$_id", clientName: "$clients.name", totalBill: 1}}, {$sort: {totalBill: -1}}, {$limit: 1}])
             .exec((error, result) => {
                 if(error) {
                     reject(error);

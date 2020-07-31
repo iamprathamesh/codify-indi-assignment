@@ -74,6 +74,9 @@ const swaggerOptions = {
                         "200": {
                             description: "Successfully returns token",
                             content: "application/json"
+                        },
+                        "500": {
+                            description: "Exception occured on server side"
                         }
                     }
                 }
@@ -104,6 +107,9 @@ const swaggerOptions = {
                         "201": {
                             description: "Successfully created/updated agency and client",
                             content: "application/json"
+                        },
+                        "500": {
+                            description: "Exception occured on server side"
                         }
                     }
                 }
@@ -146,15 +152,18 @@ const swaggerOptions = {
                         "201": {
                             description: "Successfully updated client",
                             content: "application/json"
+                        },
+                        "500": {
+                            description: "Exception occured on server side"
                         }
                     }
                 }
             },
-            "/agency/getTopClients": {
+            "/agency/getTopClient": {
                 get: {
                     tags: ["getAllTopClients"],
-                    summary: "get top clients of all agencies",
-                    description: "get top clients of all agencies",
+                    summary: "get top client among all the agencies",
+                    description: "get top client among all the agencies",
                     parameters: [
                         {
                             in: "header",
@@ -168,6 +177,9 @@ const swaggerOptions = {
                         "200": {
                             description: "Successfully fetched top clients for all agencies",
                             content: "application/json"
+                        },
+                        "500": {
+                            description: "Exception occured on server side"
                         }
                     }
                 }
